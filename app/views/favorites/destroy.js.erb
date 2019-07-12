@@ -1,0 +1,4 @@
+<% if @title.present? %>
+  $("#users_ajax").html("<%= j(render(partial: 'users/users', locals: { title:@title, users:@users }))%>");
+<% end %>
+$("#like").html("<%= j(render(partial: 'users/like_form', locals: { user:@user }))%>");

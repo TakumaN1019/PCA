@@ -1,0 +1,12 @@
+<% content_for :title do %>
+  <%= "あなたが送信しているユーザー一覧 | あ" %>
+<% end %>
+
+<%= render "home/adsense" %>
+
+<div id="users_ajax">
+  <%= render "users", title:@title, users:@users %>
+</div>
+
+<%= render "home/adsense" %>
+

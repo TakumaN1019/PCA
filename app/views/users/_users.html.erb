@@ -1,0 +1,43 @@
+<div id="users">
+  <h1><%= title %></h1>
+
+  <% users.each do |user| %>
+    <div class="user_field">
+      <%= link_to("/users/#{user.id}", class:"user") do %>
+        <div class="image">
+          <% if user.image? %>
+            <%= image_tag user.image.url %>
+          <% else %>
+            <%= image_tag "https://phantom-communication-application.s3-ap-northeast-1.amazonaws.com/base/black.jpg" %>
+          <% end %>
+        </div>
+        <div class="name"><h4><%= user.name %></h4></div>
+
+        <div class="send">
+          <% if user_signed_in? %>
+            <% if not current_user?(user) %>
+              <% if user.receive_range == "all" %>
+                <%# 受け取り範囲が全ユーザーであれば全員に表示 %>
+                <% if current_user.sending?(user) %>
+                  <%= link_to "送信済み", unsend_path(user.id), data: { confirm: "本当に送信を取り消しますか？" }, method: :delete, remote: true, class:"btn unsend_btn" %>
+                <% else %>
+                  <%= link_to "あ", send_path(user.id), method: :post, remote: true, class:"btn send_btn" %>
+                <% end %>
+              <% end %>
+              <% if user.receive_range == "favorite-only" && user.liking?(current_user) %>
+                <%# @userが受け取り範囲をお気に入りユーザーのみにしていて、current_userをお気に入りにしていたら表示 %>
+                <% if current_user.sending?(user) %>
+                  <%= link_to "送信済み", unsend_path(user.id), data: { confirm: "本当に送信を取り消しますか？" }, method: :delete, remote: true, class:"btn unsend_btn" %>
+                <% else %>
+                  <%= link_to "あ", send_path(user.id), method: :post, remote: true, class:"btn send_btn" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+
+      <% end %>
+    </div>
+  <% end %>
+  <div style="clear:both;"></div><!-- padding-bottomを効かせるためのもの -->
+</div>

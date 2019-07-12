@@ -1,0 +1,12 @@
+<% content_for :title do %>
+  <%= "お気に入りユーザー | あ" %>
+<% end %>
+
+<%= render "home/adsense" %>
+
+<div id="users_ajax">
+  <%= render "users", title:@title, users:@users %>
+</div>
+
+<%= render "home/adsense" %>
+

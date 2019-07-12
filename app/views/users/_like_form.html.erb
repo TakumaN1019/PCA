@@ -1,0 +1,11 @@
+<div class="like">
+  <% if user_signed_in? %>
+    <% if not current_user?(user) %>
+      <% if current_user.liking?(user) %>
+        <%= link_to "お気に入り中", unlike_path(user.id), data: { confirm: "本当にお気に入りを取り消しますか？" }, method: :delete, remote: true, class:"btn unlike_btn" %>
+      <% else %>
+        <%= link_to "お気に入り登録", like_path(user.id), method: :post, remote: true, class:"btn like_btn" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,16 @@
+<% content_for :title do %>
+  <%= "受信箱 | あ" %>
+<% end %>
+
+<%= render "home/adsense" %>
+
+<% if current_user.receive_range == "all" && current_user.likings.count > 0 %><%# 受け取り範囲がユーザー全員の@userはお気に入りユーザーだけに絞り込んでメッセージを見られるようにする %>
+  <div id="senders_btn"><%= link_to "お気に入りユーザーだけを表示", favorite_senders_path %></div>
+<% end %>
+
+<div id="users_ajax">
+  <%= render "users", title:@title, users:@users %>
+</div>
+
+<%= render "home/adsense" %>
+

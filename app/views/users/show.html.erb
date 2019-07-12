@@ -1,0 +1,33 @@
+<% content_for :title do %>
+  <%= "#{@user.name} | あ" %>
+<% end %>
+
+<div id="user">
+  <% if @user.image? %>
+    <%= image_tag @user.image.url, id: "image" %>
+  <% else %>
+    <%= image_tag "https://phantom-communication-application.s3-ap-northeast-1.amazonaws.com/base/black.jpg", id:"image" %>
+  <% end %>
+
+  <h2 id="name"><%= @user.name %></h2>
+  <% if user_signed_in? %>
+    <% if current_user?(@user) %>
+      <%= link_to "プロフィールを編集", edit_user_path(current_user.id), id:"edit_btn" %>
+    <% else %>
+      <div id="like"><%= render "like_form", user:@user %></div>
+      <% if @user.receive_range == "all" %>
+        <%# 受け取り範囲が全ユーザーであれば全員に表示 %>
+        <div id="send"><%= render "send_form", user:@user %></div>
+      <% end %>
+      <% if @user.receive_range == "favorite-only" && @user.liking?(current_user) %>
+        <%# @userが受け取り範囲をお気に入りユーザーのみにしていて、current_userをお気に入りにしていたら表示 %>
+        <div id="send"><%= render "send_form", user:@user %></div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if @user.description.present? %><div id="description"><%= simple_format(@user.description) %></div><% end %>
+  <% if @user.url.present? %><div id="url"><%= link_to @user.url, @user.url, target:"_blank" %></div><% end %>
+</div>
+
+<%= render "home/adsense" %>
+
