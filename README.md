@@ -1,13 +1,10 @@
 # README
 
-Ruby version 2.5.3
-
+Ruby version 2.5.3<br>
 Rails version 5.2.3
 
-Database MariaDB
-
-Web server Nginx
-
+Database MariaDB<br>
+Web server Nginx<br>
 Application server unicorn
 
 
